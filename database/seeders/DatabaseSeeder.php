@@ -1,0 +1,29 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Carbon\Carbon;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        // \App\Models\User::factory(10)->create();
+
+        User::factory(10)->create([
+            /*   'name' => 'Test User',
+            'email' => 'test@example.com',
+            */
+            'date_of_birth' => Carbon::now()->subYear(20)->format('Y-m-d'),
+
+        ]);
+    }
+}
