@@ -17,5 +17,6 @@ class Authenticate extends Middleware
         if (! $request->expectsJson()) {
             return route('login');
         }
+        return null; // se for API, Laravel retorna JSON 401 automaticamente
     }
 }
