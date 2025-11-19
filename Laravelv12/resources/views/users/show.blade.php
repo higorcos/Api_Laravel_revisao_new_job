@@ -6,7 +6,7 @@
 
 @section('content')
     <h1>
-        OIIIIIIII, 
+        Show, 
     </h1>
     <h2>Dados de: {{$user->name}}</h2>
     
