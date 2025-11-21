@@ -62,11 +62,26 @@ Route::get('/posts/deleted', function () {
 });
 Route::get('/users/relacao', function () {
     $user = User::with('profile')->find(1);
-/* 
+
     $user->profile()->create([
         'type'=>'PJ',
         'document_number'=>'1234567890'   
-    ]);  */
+    ]);  
+
+    return $user;
+});
+
+Route::get('/users/posts', function () {
+    $user = User::with('post')->find(1);
+
+
+    return $user;
+});
+
+
+Route::get('/users/role', function () {
+    $user = User::find(1);
+    $user->roles()->attach(2);
 
     return $user;
 });
