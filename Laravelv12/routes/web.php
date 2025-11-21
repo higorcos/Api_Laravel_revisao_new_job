@@ -3,7 +3,6 @@
 use App\Http\Controllers\UserController;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Profile;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,7 +18,6 @@ Route::get('/', function () {
     return 'hafargq5etg5ge word';
     
 })->name('post');
-
 Route::get('/posts', function () {
     $post = Post::all();
 
@@ -70,15 +68,12 @@ Route::get('/users/relacao', function () {
 
     return $user;
 });
-
 Route::get('/users/posts', function () {
     $user = User::with('post')->find(1);
 
 
     return $user;
 });
-
-
 Route::get('/users/role', function () {
     $user = User::find(1);
     $user->roles()->attach(2);
@@ -86,5 +81,7 @@ Route::get('/users/role', function () {
     return $user;
 });
 
-Route::get('/admin/usuarios', [UserController::class, 'index']);
-Route::get('/admin/usuarios/{user}', [UserController::class, 'show']);
+Route::get('/admin/usuarios', [UserController::class, 'index'])->name('users.index');
+Route::get('/admin/usuarios/cadastrar', [UserController::class, 'create'])->name('users.create');
+Route::post('/admin/usuarios/cadastrar', [UserController::class, 'store'])->name('users.store');
+Route::get('/admin/usuarios/{user}', [UserController::class, 'show'])->name('users.show');

@@ -7,10 +7,16 @@
      @foreach($users as $user)
      <div>{{$user->name}}</div>
      @endforeach
-     
      <div>
-         <img width='400px' src="{{ Vite::asset('resources/images/image.png') }}">
+
+         {{ $users->links()}}
+        </div>
+
+     <div>
+         <img width='200px' src="{{ Vite::asset('resources/images/image.png') }}">
      </div>
+
+    
     
    
 @endsection
