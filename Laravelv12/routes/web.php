@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\Teste1Middleware;
 use App\Http\Middleware\TesteMiddleware;
 use App\Models\Post;
 use App\Models\User;
@@ -14,7 +15,7 @@ Route::domain('{user}.api-laravel.teste')->group(function(){
     return 'Bem-Vindo '. $user ;
     });
 });
-Route::prefix('/admin/users')->name('admin.users.')->middleware(TesteMiddleware::class)->group(function(){
+Route::prefix('/admin/users')->name('admin.users.')->middleware([TesteMiddleware::class])->group(function(){
 
     Route::get('relacao', function () {
         $user = User::with('profile')->find(1);
@@ -111,13 +112,45 @@ Route::get('/proto/{id}/{name}', function ($id=null,$name=null) {
 Route::get('/token/{token}', function ($token) {
     
     return 'token do user '. $token;
-})->middleware(TesteMiddleware::class);
+})->middleware([TesteMiddleware::class, Teste1Middleware::class]);
 //Route::pattern FOI DEFINIDO NO AppServiceProvider.php '[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\
 ///-----------
 //->whereNumber('token');
 //->whereAlpha('token');
 //->whereAlphaNumeric('token');
 //>whereUuid('token');
+
+
+//middleware em grupo de rotas
+Route::middleware([TesteMiddleware::class, Teste1Middleware::class])->group(function(){
+    Route::get('/token2/{token}', function ($token) {
+    
+    return 'Grupo com middleware - token do user '. $token;
+    });
+
+    Route::get('/token3/{token}', function ($token) {
+    
+    return 'Grupo com middleware - token do user '. $token;
+    });
+
+    Route::get('/token4/{token}', function ($token) {
+    
+    return 'Grupo com middleware mais tirando um - token do user '. $token;
+    })->withoutMiddleware([TesteMiddleware::class]); //uma rota sem 
+    //ou grupo de rotas sem middleware
+
+    Route::withoutMiddleware([Teste1Middleware::class])->group(function(){
+        Route::get('/token5/{token}', function ($token) {
+            
+            return 'Grupo do grupo sem um middleware  - token do user '. $token;
+        });
+         Route::get('/token6/{token}', function ($token) {
+            
+            return 'Grupo do grupo sem um middleware - token do user '. $token;
+        });
+    });
+});
+
 
 
 Route::fallback(function(){
