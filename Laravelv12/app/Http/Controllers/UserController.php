@@ -30,8 +30,8 @@ class UserController extends Controller
         User::create($input);
         return redirect()->back();
     }
-    public function show(User $user){
-        return view('users.show', ['user'=>$user]);
+    public function show(User $user){ //abacaxi para funcionar o scoped
+        return view('users.show', ['user'=>$user]);//abacaxi para funcionar o scoped
     }
     public function  destroy(User $user){
         return null;

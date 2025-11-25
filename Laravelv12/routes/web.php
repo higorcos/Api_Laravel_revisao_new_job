@@ -157,8 +157,17 @@ Route::middleware(['groupMiddlewareTest'])->group(function(){
         });
     });
 });
+
+
+
+
 // o certo deveria ser token mas o token está sendo validado para ser uuid
-Route::get('/checkout/{id}',CheckoutController::class);
+Route::get('/checkout/{id}',CheckoutController::class);// Direto 
+
+/* 
+        resource
+*/
+
 
 //Gerar rotas para controller
 Route::resource('users', UserController::class)->only(['destroy']); // apenas para destroy
@@ -178,6 +187,11 @@ Route::apiResources([
     'api/users4' => UserController::class,
 ]);
 
+/* 
+        resource rotas e personalização
+*/
+
+
 //Usado para manipular os comentários de um usuário sem a necessidade de passar os usuário logo o larvel cria rotas para manupular diretamente os comentarios
 Route::resource('usersS.comentarios', UserController::class)->shallow();
 /* 
@@ -196,19 +210,30 @@ Route::resource('usersS.comentarios', UserController::class)->shallow();
 */
 
 
+
+
+
 Route::resource('posts2.comments', PostController::class)->parameters([
     'posts2'=> 'admin_post', // vai alterar o nome padrão dos parametros da url
     'comments' => 'admin_comments'
 ]); 
+//Vai fazer uma busca personalizada pelo email mantendo o show se a pesquisa fosse for id
+//email é o nome do campo no banco de dados
+Route::get('user10/{user:email}',[UserController::class, 'show' ]);
 
+Route::resource('abacaxi',UserController::class)->scoped([
+     'abacaxi' => 'email', // busca personalizada pelo email 
+     //O nome do parametro que tá sendo mudado deve ser iqual ao do controler 'abacaxi aqui e no controller' 'o nome da rota será o nome do parametro  tbm'
+]);
+//no rota:list a rota irá manter o nomer sem a mudança
 
+/* 
+        Outras
+*/
 
 Route::fallback(function(){
     return redirect()->route('home');
 });
-
-
-
 
 /* 
 criar controller resorce
