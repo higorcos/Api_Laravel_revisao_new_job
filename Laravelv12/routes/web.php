@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Teste1Middleware;
 use App\Http\Middleware\TesteMiddleware;
@@ -155,6 +157,49 @@ Route::middleware(['groupMiddlewareTest'])->group(function(){
         });
     });
 });
+// o certo deveria ser token mas o token está sendo validado para ser uuid
+Route::get('/checkout/{id}',CheckoutController::class);
+
+//Gerar rotas para controller
+Route::resource('users', UserController::class)->only(['destroy']); // apenas para destroy
+Route::resource('users2', UserController::class)->except(['destroy']); // menos para destroy
+
+//Mutiplos resources
+Route::resources([ // não é possivel colocar o only ou except
+    'users3' => UserController::class,
+    'users4' => UserController::class,
+]);
+
+//Resource API
+Route::apiResource('api/usersAPI', UserController::class)->except(['destroy']); // menos para destroy
+//Mutiplos resources API
+Route::apiResources([
+    'api/users3' => UserController::class,
+    'api/users4' => UserController::class,
+]);
+
+//Usado para manipular os comentários de um usuário sem a necessidade de passar os usuário logo o larvel cria rotas para manupular diretamente os comentarios
+Route::resource('usersS.comentarios', UserController::class)->shallow();
+/* 
+  GET|HEAD        comentarios/{comentario} ........................................ comentarios.show › UserController@show
+  PUT|PATCH       comentarios/{comentario} .................................... comentarios.update › UserController@update
+  DELETE          comentarios/{comentario} .................................. comentarios.destroy › UserController@destroy
+  GET|HEAD        comentarios/{comentario}/edit ..............................omentarios.edit › UserController@edit
+
+
+  e tbm mantém as rotas para mudar os datos atraves do usuário - as manipulações de comentario não está atrelada AO user APENAS DE LISTAGEM
+
+  GET|HEAD        usersS/{usersS}/comentarios ............................ usersS.comentarios.index › UserController@index
+  POST            usersS/{usersS}/comentarios ............................ usersS.comentarios.store › UserController@store
+  GET|HEAD        usersS/{usersS}/comentarios/create ................... usersS.comentarios.create › UserController@create
+
+*/
+
+
+Route::resource('posts2.comments', PostController::class)->parameters([
+    'posts2'=> 'admin_post', // vai alterar o nome padrão dos parametros da url
+    'comments' => 'admin_comments'
+]); 
 
 
 
@@ -162,4 +207,19 @@ Route::fallback(function(){
     return redirect()->route('home');
 });
 
+
+
+
+/* 
+criar controller resorce
+
+php artisan make: controller UserController --resource
+
+
+criar controller resorce + model 
+
+php artisan make: controller UserController --resource --model=User
+
+
+*/
 

@@ -33,4 +33,7 @@ class UserController extends Controller
     public function show(User $user){
         return view('users.show', ['user'=>$user]);
     }
+    public function  destroy(User $user){
+        return null;
+    }
 }
