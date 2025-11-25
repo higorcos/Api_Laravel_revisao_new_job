@@ -1,10 +1,87 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\TesteMiddleware;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Request;
+
+
+
+Route::domain('{user}.api-laravel.teste')->group(function(){
+    Route::get('', function ($user) {
+    return 'Bem-Vindo '. $user ;
+    });
+});
+Route::prefix('/admin/users')->name('admin.users.')->middleware(TesteMiddleware::class)->group(function(){
+
+    Route::get('relacao', function () {
+        $user = User::with('profile')->find(1);
+
+        $user->profile()->create([
+            'type'=>'PJ',
+            'document_number'=>'1234567890'   
+        ]);  
+
+        return $user;
+    })->name('relacao');
+    Route::get('posts', function () {
+        $user = User::with('post')->find(1);
+
+
+        return $user;
+    })->name('post');
+    Route::get('role', function () {
+        $user = User::find(1);
+        $user->roles()->attach(2);
+
+        return $user;
+    })->name('role');
+    Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('/cadastrar', [UserController::class, 'create'])->name('create');
+    Route::post('/cadastrar', [UserController::class, 'store'])->name('store');
+    Route::get('/{user}', [UserController::class, 'show'])->name('show');
+});
+
+Route::prefix('/posts')->name('posts.')->group(function(){
+    Route::get('/', function () {
+        $post = Post::all();
+
+        dd($post);
+    })->name('show');
+    Route::get('{id}', function ($id) {
+        $post = Post::find($id);
+        return [$post];
+    })->name('findId');
+    Route::put('updated', function () {
+        $inputSimula = [
+            'title'=>'titulo atualização', 
+            'body' => '28305@@#!#4-598127508713460/*-***!@#$%*()_',
+        ];
+        
+        $post = Post::find(3);
+        $post->fill($inputSimula);
+        $post->save();
+        
+        return $post;
+    })->name('updated');
+    Route::delete('delete', function () {
+        $inputSimula = [
+            'title'=>'titulo atualização', 
+            'body' => '28305@@#!#4-598127508713460/*-***!@#$%*()_',
+        ];
+        $post = Post::find(5);
+        
+        if($post != null){
+            $post->delete();
+            return 'deletado';
+        }else{
+            return 'Post não encotrado ';
+        };
+        
+    })->name('delete');
+});
 
 Route::get('/', function () {
     
@@ -13,75 +90,38 @@ Route::get('/', function () {
         'body' => 'Teste teste1-29471249587149587134-598127508713460/*-***!@#$%*()_' 
     ]);
 
-    dd($post);
+    return 'home';    
+})->name('home');
 
-    return 'hafargq5etg5ge word';
+Route::get('/proto/{id}', function ($id=null) {
     
-})->name('post');
-Route::get('/posts', function () {
-    $post = Post::all();
-
-    dd($post);
+    return 'parametro'. $id;
 });
-Route::get('/posts/', function (Request $postr) {
-    print($postr);
-    $post = Post::find(3);
-    ///$post = Post::where('title','LIKE','primeiro%')->get();
 
-
-    dd($post);
-});
-Route::get('/posts/updated', function () {
-    $inputSimula = [
-         'title'=>'titulo atualização', 
-        'body' => '28305@@#!#4-598127508713460/*-***!@#$%*()_',
-    ];
+Route::get('/proto/{id}/{name}', function ($id=null,$name=null) {
     
-    $post = Post::find(3);
-    $post->fill($inputSimula);
-    $post->save();
+    return 'parametro'. $id . ' nome: '.$name;
+})->where('id','[0-9]+')->where('name','[A-Za-z]+');
+/* ->where([
+    'id'=>'[0-9]+',
+    'name'=>'[A-Za-z]+'
+]);
+ */
+
+Route::get('/token/{token}', function ($token) {
     
-    return $post;
-});
-Route::get('/posts/deleted', function () {
-    $inputSimula = [
-         'title'=>'titulo atualização', 
-        'body' => '28305@@#!#4-598127508713460/*-***!@#$%*()_',
-    ];
-    $post = Post::find(5);
-    
-    if($post != null){
-        $post->delete();
-        return 'deletado';
-    }else{
-        return 'Post não encotrado ';
-    };
-    
-});
-Route::get('/users/relacao', function () {
-    $user = User::with('profile')->find(1);
-
-    $user->profile()->create([
-        'type'=>'PJ',
-        'document_number'=>'1234567890'   
-    ]);  
-
-    return $user;
-});
-Route::get('/users/posts', function () {
-    $user = User::with('post')->find(1);
+    return 'token do user '. $token;
+})->middleware(TesteMiddleware::class);
+//Route::pattern FOI DEFINIDO NO AppServiceProvider.php '[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\
+///-----------
+//->whereNumber('token');
+//->whereAlpha('token');
+//->whereAlphaNumeric('token');
+//>whereUuid('token');
 
 
-    return $user;
-});
-Route::get('/users/role', function () {
-    $user = User::find(1);
-    $user->roles()->attach(2);
-
-    return $user;
+Route::fallback(function(){
+    return redirect()->route('home');
 });
 
-Route::get('/admin/usuarios', [UserController::class, 'index'])->name('users.index');
-Route::get('/admin/usuarios/cadastrar', [UserController::class, 'create'])->name('users.create');
-Route::post('/admin/usuarios/cadastrar', [UserController::class, 'store'])->name('users.store');
-Route::get('/admin/usuarios/{user}', [UserController::class, 'show'])->name('users.show');
+
