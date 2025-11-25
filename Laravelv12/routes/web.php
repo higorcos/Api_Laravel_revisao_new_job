@@ -120,9 +120,14 @@ Route::get('/token/{token}', function ($token) {
 //->whereAlphaNumeric('token');
 //>whereUuid('token');
 
+Route::get('/token00/{token}', function ($token) {
+    
+    return 'token do user '. $token;
+})->middleware(['teste00', 'teste01']);
+
 
 //middleware em grupo de rotas
-Route::middleware([TesteMiddleware::class, Teste1Middleware::class])->group(function(){
+Route::middleware(['groupMiddlewareTest'])->group(function(){
     Route::get('/token2/{token}', function ($token) {
     
     return 'Grupo com middleware - token do user '. $token;
