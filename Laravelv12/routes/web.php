@@ -227,6 +227,161 @@ Route::resource('abacaxi',UserController::class)->scoped([
 ]);
 //no rota:list a rota irá manter o nomer sem a mudança
 
+
+/* 
+        REQUESTs
+*/
+
+Route::get('req/prop',function(Request $request){
+    dd($request);
+    
+  dd($request->path());
+// Retorna apenas o caminho da URL, sem domínio.
+// Ex: em "http://localhost:8000/req/prop" retorna: "req/prop"
+
+dd($request->url());
+// Retorna a URL completa sem parâmetros de query.
+// Ex: "http://localhost:8000/req/prop"
+
+dd($request->fullUrl());
+// Retorna a URL completa **incluindo** parâmetros de query (se existirem).
+// Ex: "http://localhost:8000/req/prop?curso=php"
+
+dd($request->fullUrlWithQuery(['curso' => 'laravel']));
+// Retorna a URL completa e adiciona/mescla os parâmetros informados.
+// Ex: "http://localhost:8000/req/prop?curso=laravel"
+
+dd($request->fullUrlIs('http://localhost:8000/req/prop'));
+// Verifica se a URL completa atual corresponde exatamente ao padrão informado.
+// Retorna TRUE ou FALSE.
+
+dd($request->is('users'));
+// Verifica se o path da URL corresponde ao padrão.
+// Aceita wildcards ('users/*'). Retorna TRUE ou FALSE.
+
+dd($request->routeIs('users'));
+// Verifica se o nome da rota corresponde ao padrão (não a URL).
+// Ex: route('users') → TRUE. Usa o nome definido no web.php.
+
+dd($request->method());
+// Retorna o método HTTP da requisição.
+// Ex: "GET", "POST", "PUT"...
+
+dd($request->isMethod('get'));
+// Retorna TRUE se o método HTTP da requisição for o especificado.
+// Ex: TRUE se for GET.
+
+
+dd($request->input('token'));
+// Retorna o valor do campo "token" enviado na requisição (POST, PUT, GET...)
+// Pode vir tanto do corpo (POST) quanto da query (?token=123).
+
+dd($request->input('curso', 'Laravel'));
+// Retorna o valor do campo "curso".  
+// Caso o campo NÃO exista, retorna o valor padrão "Laravel".
+
+dd($request->input('product.curso'));
+// Acessa um campo dentro de um array multidimensional enviado na requisição.
+// Ex: product[curso] ⇒ retorna o valor desse índice.
+
+dd($request->input());
+// Retorna **todos** os dados enviados na requisição,
+// incluindo body (POST) + query string (?a=1).
+
+
+dd($request->query('product'));
+// Retorna apenas valores enviados via **query string**,
+// ou seja: ?product=algo
+
+dd($request->query('curso', 'Laravel'));
+// Busca o campo "curso" **somente** da query string,
+// retornando "Laravel" caso não exista.
+
+dd($request->query());
+// Retorna **todos os parâmetros da query string**,
+// ignorando dados do corpo da requisição.
+
+
+dd($request->token);
+// Acessa diretamente o valor de "token" se enviado na requisição.
+// É equivalente a $request->input('token').
+
+dd($request->only());
+// Retorna apenas os campos especificados.
+// Ex: $request->only(['nome','email'])
+
+dd($request->except());
+// Retorna **todos os dados** exceto os campos especificados.
+// Ex: $request->except(['_token'])
+
+
+if ($request->has('token')){
+    dd('token existi');
+}
+
+// ----------------------------
+// HAS(), FILLED(), MISSING()
+// ----------------------------
+
+// Verifica se TODOS os campos existem (mesmo vazios).
+dd($request->has(['token', 'curso']));
+
+// Verifica se ALGUM dos campos existe.
+dd($request->hasAny(['token', 'curso']));
+
+// Verifica se "curso" existe e NÃO está vazio.
+dd($request->filled('curso'));
+
+// Verifica se "token" NÃO foi enviado.
+dd($request->missing('token'));
+
+
+// ----------------------------
+// WHENHAS(), WHENFILLED()
+// ----------------------------
+
+// Executa a callback se "token" existir.
+$request->whenHas('token', function ($value) {
+    dd("token existe e tem valor: " . $value);
+});
+
+// Executa a callback se "curso" estiver preenchido (não vazio).
+$request->whenFilled('curso', function ($value) {
+    dd("curso preenchido: " . $value);
+
+
+});
+});
+
+
+Route::get('views',function(){
+
+    $collection = [
+    ['name' => 'Ana',      'age' => 25],
+    ['name' => 'Bruno',    'age' => 30],
+    ['name' => 'Carlos',   'age' => 22],
+    ['name' => 'Daniela',  'age' => 28],
+    ['name' => 'Eduardo',  'age' => 35],
+    ['name' => 'Fernanda', 'age' => 27],
+    ['name' => 'Gabriel',  'age' => 24],
+    ['name' => 'Helena',   'age' => 31],
+    ['name' => 'Igor',     'age' => 29],
+    ['name' => 'Julia',    'age' => 26],
+    ];
+    $users =[];
+
+    return view('moduloTest.app0', compact('collection', 'users'));
+});
+
+
+
+
+
+
+
+
+
+
 /* 
         Outras
 */
@@ -247,4 +402,3 @@ php artisan make: controller UserController --resource --model=User
 
 
 */
-
