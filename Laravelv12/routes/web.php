@@ -1,5 +1,7 @@
 <?php
 
+use App\Exceptions\ProductNotFoundException;
+use App\Exceptions\InvalidOrdenException;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -377,6 +379,27 @@ Route::get('views1',function(){
 
     return view('moduloTest.app1');
 });
+
+
+Route::get('about',function(){
+
+    //abort(401,'Opa! Você não tem permissão de acesso'); 
+
+    //abort_if(true,404,'User não encontrado'); // se for verdadeiro
+    //abort_unless(false, 500 , 'msg de error'); // se for falso
+
+    throw new InvalidOrdenException();
+
+    
+});
+
+Route::get('about-api',function(){
+
+    throw new ProductNotFoundException();
+});
+
+
+
 
 
 

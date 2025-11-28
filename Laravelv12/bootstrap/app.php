@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\ProductNotFoundException;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\Teste1Middleware;
 use App\Http\Middleware\TesteMiddleware;
@@ -7,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
+use Mockery\Exception\InvalidOrderException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -33,5 +35,20 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        //$exceptions->dontReport() // para não colocar o erro de alguma exception no log - usado para erros comnuns
+       /*  $exceptions->render(function (InvalidOrderException $e){ // mostrar view diretamente
+            return response()->view('errors.invalid-order', [400]);
+        }); */
+
+        //modelo para API
+       /*   $exceptions->render(function (ProductNotFoundException $e){ // mostrar view diretamente
+            return response()->json([
+                'error'=> 'ProductNotFoundException',
+            ],400);
+        }); */
+
+       /*  $exceptions->report(function(InvalidOrderException $e){
+            //dd($e);
+        }); */
+        
     })->create();
