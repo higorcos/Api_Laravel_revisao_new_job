@@ -373,6 +373,12 @@ Route::get('views',function(){
     return view('moduloTest.app0', compact('collection', 'users'));
 });
 
+Route::get('views1',function(){
+
+    return view('moduloTest.app1');
+});
+
+
 
 
 
