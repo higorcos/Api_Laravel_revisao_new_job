@@ -107,7 +107,7 @@ Route::get('/', function () {
     dd($users);
     return view('welcome');
 });
-///FILTRO
+///FILTRO-
 Route::get('/query/', function (Request $request ) {
     $name = $request->name;
 
