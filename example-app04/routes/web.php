@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -97,7 +98,6 @@ Route::get('/', function () {
 
     //Combinar where - whereall
     //Combinar where com orWhere - wherAny -----negação whereNone
-
     
     
     
@@ -106,4 +106,20 @@ Route::get('/', function () {
 
     dd($users);
     return view('welcome');
+});
+///FILTRO
+Route::get('/query/', function (Request $request ) {
+    $name = $request->name;
+
+    $users = DB::table('users')
+        ->when(!empty($name), function($query) use ($name){ /// quando a variavel name existir
+            $query->whereLike('name', '%'. $name .'%');
+        })
+        ->get(); 
+    return $users;
+});
+
+Route::get('/join', function () {
+    $users = DB::table('users')->join('posts', 'users.id', '=', 'posts.user_id')->get(); 
+
 });
