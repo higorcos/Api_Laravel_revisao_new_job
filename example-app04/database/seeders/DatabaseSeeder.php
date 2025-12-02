@@ -16,23 +16,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-        //De 1 -> N
-        User::factory(5)
-            ->has(Car::factory(1)) // ou hasCars - "Nome da relação dentro de users:model"
-            ->create(); 
-        //Cada usuário vai ter um carro cada
-
-
-        //De N -> 1
-        Car::factory(5)
-        ->for(User::factory())
-        ->create();
-        //cinco carro para um usuário 
+        $this->call(CarSeeder::class);
+        $this->call(UserSeeder::class);
 
         //Criar um por um
-        User::factory(4)->create();
-        //Car::factory(5)->create();
+        //User::factory(4)->create();
+        //Car::factory(5)->create(); //Não vai funcionar assim tem um relacionamento na tabela
 
     }
  } 
