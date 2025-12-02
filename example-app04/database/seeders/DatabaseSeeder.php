@@ -16,12 +16,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->count(5)->create();
-        Car::factory(10)->create();
+
+        //De 1 -> N
+        User::factory(5)
+            ->has(Car::factory(1)) // ou hasCars - "Nome da relação dentro de users:model"
+            ->create();
+        //Cada usuário vai ter um carro cada
+
+
+        //De N -> 1
+
+
+        //Car::factory()->count(5)->create();
+
 
        /*  User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]); */
     }
-}
+ } 
