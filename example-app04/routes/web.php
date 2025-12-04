@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Car;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -121,5 +122,95 @@ Route::get('/query/', function (Request $request ) {
 
 Route::get('/join', function () {
     $users = DB::table('users')->join('posts', 'users.id', '=', 'posts.user_id')->get(); 
+
+});
+
+
+
+Route::get('/car', function () {
+    $car = Car::create([
+        'seller_name'=> 'higor',
+        'seller_email'=> 'higor@gmail.com',
+        'make'=> 'fiat',
+        'year'=> '2000',
+        'model'=> 'fiat 500',
+        'user_id' => '1',
+    ]);
+    return [$car ];
+});
+
+Route::get('/cars', function () {
+    $cars = Car::all();
+    return $cars ;
+});
+
+Route::get('/car/{id}', function ($id) {
+    $cars = Car::find($id);
+    return $cars ;
+}); 
+
+Route::get('/carr/{id}', function (Request $request,$id) {
+    $newCar = [
+        'seller_name'=> 'higor',
+        'seller_email'=> 'higor@gmail.com',
+        'make'=> 'fiat',
+        'year'=> '2000',
+        'model'=> 'fiat 500',
+        ];
+    //modo alternativo
+    /*  $car = Car::find($id);
+    $car->fill($newCar);
+    $car->save(); 
+    */
+
+
+    $car = Car::where('id',$id)->update($newCar);
+
+
+    return  $car;
+});
+
+Route::get('/car/del/{id}', function (Request $request,$id) {
+    $car = Car::find($id)->delete();
+    return  $car;
+    
+
+});
+
+
+Route::get('/pesquisar-criar', function (Request $request) {
+    $newCar = [
+        'seller_name'=> 'higor02',
+        'seller_email'=> 'higor@gmail.com', /// Está criando com esse email aqui 
+        'make'=> 'fiat',
+        'year'=> '2000',
+        'model'=> 'fiat 500',
+        'user_id' => '1'
+    ];
+    $car = Car::firstOrCreate(['seller_email'=> 'higor1@gmail.com'],$newCar); //Pesquisar ou criar se não encontrar
+    //primeiro array de pesquisa segundo de criação
+
+
+    $car = Car::firstOrNew(['seller_email'=> 'higor1@gmail.com'],$newCar); //Apenas Pesquisar 
+
+    return  $car;
+    
+
+});
+
+Route::get('/atualiza-ou-criar', function (Request $request) {
+    $newCar = [
+        'seller_name'=> 'higor02',
+        'seller_email'=> 'higor@gmail.com',  
+        'make'=> 'fiat',
+        'year'=> '2025',// novo dado
+        'model'=> 'fiat argo', //
+        'user_id' => '1'
+    ];
+    //atualiza ou cria
+    $car = Car::updateOrCreate(['seller_email'=> 'higor@gmail.com'],$newCar); 
+
+    return  $car;
+    
 
 });

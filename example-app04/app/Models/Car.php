@@ -9,7 +9,11 @@ class Car extends Model
 {
     /** @use HasFactory<\Database\Factories\CarFactory> */
     use HasFactory;
-
+    protected $fillable = ['seller_name', 'seller_email','make','model', 'year','user_id'];
+    
+    //public $timestamps = false;
+    
+    
     public function user(){
         return $this->belongsTo(User::class);
     }
