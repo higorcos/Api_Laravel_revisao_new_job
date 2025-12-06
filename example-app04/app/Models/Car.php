@@ -12,9 +12,11 @@ class Car extends Model
     protected $fillable = ['seller_name', 'seller_email','make','model', 'year','user_id'];
     
     //public $timestamps = false;
-    
+       public function scopeCarList($query){  
+        return $query->where('year', '>', '0');
+    } 
     
     public function user(){
         return $this->belongsTo(User::class);
-    }
+    }   
 }

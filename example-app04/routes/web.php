@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Car;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -214,3 +215,120 @@ Route::get('/atualiza-ou-criar', function (Request $request) {
     
 
 });
+
+
+Route::get('/chunk-0', function (Request $request) {
+
+    //atualiza todo o banco em bloco de 2 em 2 
+    //chunk-Vai pesquisar e atualiza de 2 em dois
+   Car::chunk(2,function($cars){
+    $cars->each(function($car){
+        $car->year = '2050';
+        $car->save();
+    });
+   });
+
+   //pode colar query
+
+   Car::where('year','>','2001')->chunk(2,function($cars){});
+
+    return ['chunk'=>'0'];
+});
+
+
+Route::get('/chunk-1', function (Request $request) {
+
+    //lazyById-Vai realizar todas as pesquisas tbm de 2 em dois porém na hora de atualizar vai ser tudo junto
+   Car::lazyById(2,'id')
+   ->each->update(['year'=>'2000']);
+
+
+    return ['lazyById-'=>'1'];
+});
+
+
+Route::get('/chunk-3', function (Request $request) {
+    // Vai trazer todas que satisfazem a query porém
+    //só vai trazer para a memoria o que estiver sendo interado
+    Car::cursor()->each->update(['year'=>'2005']);
+
+
+    return ['CURSOr-'=>'1'];
+});
+
+Route::get('/chunk-3', function (Request $request) {
+    // Vai trazer todas que satisfazem a query porém
+    //só vai trazer para a memoria o que estiver sendo interado
+    Car::cursor()->each->update(['year'=>'2005']);
+
+
+    return ['CURSOR-'=>'1'];
+});
+
+Route::get('/scope-local', function (Request $request) {
+    $cars = Car::CarList()->get();
+    //$cars = Car::CarList()->where()->get();
+
+    //escorpo local para reutilizar query repetida - O NOME no model tem que começar com scope e na chamada é sem o scope
+ 
+    return $cars;
+});
+
+Route::get('/relacionamento0', function (Request $request) {
+    $car = Car::find(2);
+    return $car->user; // vai trazer apenas o user sem dados do carro
+});
+
+
+
+Route::get('/relacionamento1', function (Request $request) {
+    $car = Car::with(['user'])->find(2); //fazer pesquisa com relacionamento
+    return $car;
+});
+
+
+Route::get('/relacionamento0-create', function (Request $request) {
+      $newCar = [
+        'seller_name'=> 'higor02',
+        'seller_email'=> 'higor@gmail.com',  
+        'make'=> 'fiat NEW create relacionamento',
+        'year'=> '2025',// novo dado
+        'model'=> 'fiat argo', //
+        'user_id' => '1'
+    ];
+   
+    $user = User::find(1);
+    $user->cars()->create($newCar);
+    //$user->cars()->update($newCar);
+    //$user->cars()->delete();
+
+    return $user;
+});
+
+Route::get('/relacionamento2', function (Request $request) {
+    $user = User::with(['cars'])->find(1); //fazer pesquisa com relacionamento
+    return $user;
+});
+
+Route::get('/relacionamento2-create', function (Request $request) {
+       $newCar = [
+        'seller_name'=> 'higor02',
+        'seller_email'=> 'higor@gmail.com',  
+        'make'=> 'fiat NEW create relacionamento',
+        'year'=> '2025',// novo dado
+        'model'=> 'fiat argo', //
+        'user_id' => '1'
+    ];
+    $user = User::find(2);
+    $user->cars()->create($newCar); //um registro
+    $user->cars()->saveMany([
+        new Car($newCar),
+        new Car($newCar),
+        new Car($newCar),
+    ]); //muitos
+    
+    
+    return $user;
+});
+
+
