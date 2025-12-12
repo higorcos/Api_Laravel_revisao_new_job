@@ -30,11 +30,7 @@
       @include('parts.sidebar')
       <!--begin::App Main-->
       <main class="app-main">
-        <div class="app-content-header">
-          <div class="container-fluid">
-            
-          </div>
-        </div>
+       @include('parts.content-header')
         <div class="app-content">
           <div class="container-fluid">
             @yield('content')            

@@ -1,8 +1,15 @@
 @extends('layouts.default')
-
+@section('page-title', 'Dashboard')
+{{-- variable --}}
+@php
+ $breadcrumbs = [
+    [ 'label' => 'Home', 'url' => '#' ],
+    [ 'label' => 'Dashboard', 'url' => '#' ],
+ ];   
+@endphp
 
 @section('content')
-<div class="row">
+    <div class="row">
               <div class="col-lg-3 col-6">
                 <div class="small-box text-bg-primary">
                   <div class="inner">
