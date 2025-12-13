@@ -155,7 +155,9 @@
                   src="{{ Vite::asset('resources/images/user2-160x160.jpg') }}"/>
                
                 <span class="d-none d-md-inline">
-                {{ \Illuminate\Support\Str::of(auth()->user()->name)->before(' ')->ucfirst() }}
+               {{-- 
+                  {{ \Illuminate\Support\Str::of(auth()->user()->name)->before(' ')->ucfirst() }}
+                --}}
                 </span>
               </a>
               <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
