@@ -6,19 +6,20 @@
       <div class="card card-outline card-primary">
         <div class="card-header">
           <a
-            href="../index2.html"
+            href="{{ route('login') }}"
             class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover"
           >
             <h1 class="mb-0"><b>Admin</b>LTE</h1>
           </a>
         </div>
         <div class="card-body register-card-body">
-          <p class="register-box-msg">Register a new membership</p>
+          <p class="register-box-msg">Reset password</p>
+         
           <form action="{{route('password.update')}}"  method="post">
             @csrf
            <input type="text" name="token" value="{{ request()->token }}" hidden>
            
-                <input id="registerEmail" name="email" type="email" hidden class="form-control @error('email') is-invalid @enderror" placeholder="" value="{{ request()->route('email') }}" />
+                <input id="registerEmail" name="email" type="email" hidden class="form-control @error('email') is-invalid @enderror" placeholder="" value="{{ request()->email }}" />
                
               <div class="input-group mb-1">
               <div class="form-floating">

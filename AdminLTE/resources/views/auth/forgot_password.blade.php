@@ -7,14 +7,19 @@
       <div class="card card-outline card-primary">
         <div class="card-header">
           <a
-            href="../index2.html"
+            href="{{ route('login') }}"
             class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover"
           >
             <h1 class="mb-0"><b>Admin</b>LTE</h1>
           </a>
         </div>
         <div class="card-body login-card-body">
-          <p class="login-box-msg">Sign in to start your session</p>
+          <p class="login-box-msg">Reset password</p>
+          @session('status')
+              <div class="alert alert-success" role="alert">
+                  {{ session('status') }}
+              </div>
+          @endsession
           <form action="{{ route('password.email') }}" method="post">
             @csrf
             <div class="input-group mb-1">
@@ -44,7 +49,7 @@
           <!-- /.social-auth-links -->
           <div>
 
-              <p class="mb-1 text-center"><a href="forgot-password.html">Back to login</a></p>
+              <p class="mb-1 text-center"><a href="{{ route('login') }}">Back to login</a></p>
             </div>
         </div>
         <!-- /.login-card-body -->

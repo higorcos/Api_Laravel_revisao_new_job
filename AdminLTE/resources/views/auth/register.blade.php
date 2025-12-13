@@ -6,7 +6,7 @@
       <div class="card card-outline card-primary">
         <div class="card-header">
           <a
-            href="../index2.html"
+            href="{{ route('login') }}"
             class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover"
           >
             <h1 class="mb-0"><b>Admin</b>LTE</h1>
@@ -66,7 +66,7 @@
             
           </form>
           <p class="mb-0 text-center">
-            <a href="login.html" class="link-primary text-center"> I already have a membership </a>
+            <a href="{{route('login')}}" class="link-primary text-center"> Back to login </a>
           </p>
         </div>
     </div>
