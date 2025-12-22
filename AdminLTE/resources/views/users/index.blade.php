@@ -1,11 +1,14 @@
 @extends('layouts.default')
 @section('page-title', 'Usuários')
 @section('page-actions')
-       <a href="" class="btn btn-primary btn-sm">Adicionar</a>
+       <a href="{{route('users.create')}}" class="btn btn-primary btn-sm">Adicionar</a>
 @endsection
 
 @section('content')
 <div>
+    @session('status')
+        <div class="alert alert-success" role="alert">{{$value}}</div>
+    @endsession
     <table class="table">
         <thead>
             <tr>
@@ -25,10 +28,8 @@
             <a href="" class="btn btn-primary btn-sm">Editar</a>
             <a href="" class="btn btn-danger btn-sm">Excluir</a>
         </td>
+        </tr>
         @endforeach
-     
-    </tr>
-   
   </tbody>
 </table>
     
