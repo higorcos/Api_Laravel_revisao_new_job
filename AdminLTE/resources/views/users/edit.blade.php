@@ -3,52 +3,7 @@
 
 
 @section('content')
-<div>
-   <form action="{{route('users.update', $user[0]->id)}}" method="POST">
-
-    @csrf
-    @method('PUT')
-
-   <div class="mb-3">
-   <label for="name" class="form-label">Nome</label>
-   <input 
-      type="text" 
-      name="name" 
-      value="{{old('name') ?? $user[0]->name}}"
-      class="form-control @error('name') is-invalid @enderror" >
-   @error('name')
-       <div class="invalid-feedback">{{$message }}</div>
-   @enderror
-   </div>
-
-  <div class="mb-3">
-    <label for="email" class="form-label">Email</label>
-    <input 
-    id="email" 
-    name="email" 
-    type="email" 
-    value="{{old('email') ?? $user[0]->email}}"
-    class="form-control @error('email') is-invalid @enderror">
-    @error('email')
-       <div class="invalid-feedback">{{$message }}</div>
-   @enderror
-  </div>
-
-  <div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <input 
-    id="password" 
-    name="password" 
-    type="password" 
-    value="{{old('password')}}"
-    class="form-control @error('password') is-invalid @enderror">
-    @error('password')
-       <div class="invalid-feedback">{{$message }}</div>
-   @enderror
-  </div>
-
-  <button type="submit" class="btn btn-primary">Editar</button>
-</form>
-    
-</div>
+   @include('users.parts.basic-details')
+   <br>
+   @include('users.parts.profile')
 @endsection

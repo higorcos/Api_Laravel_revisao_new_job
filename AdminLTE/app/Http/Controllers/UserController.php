@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserProfile;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -23,17 +24,13 @@ class UserController extends Controller
             'password'=> 'required|min:8 ',
             ]);
 
-            
-           
         $user = User::create($input); 
         
         return redirect()->route('users.index')->with('status','Usuário adicionado');
     }
-    public function show($id){
 
-    }
     public function edit(User $user){
-        $user = User::find($user);
+        $user->load('profile');
         return view('users.edit',compact('user'));
     }
     public function update(Request $request,User $user){
@@ -48,6 +45,20 @@ class UserController extends Controller
         
         return redirect()->route('users.index')->with('status','Usuário Atualizado');
     }
+    public function updateProfile(Request $request,User $user){
+        $input = $request->validate([
+            'type'=> 'required',    
+            'address'=> 'nullable',
+            ]);
+        UserProfile::updateOrCreate(
+            ['user_id' => $user->id], //usa para verificar se já existe
+            $input
+        );
+
+        return back()->with('status','Perfil criado com sucesso');
+    }
+
+
     public function destroy(User $user){    
         $user->delete();
         return back()->with('status','Usuário deletado com sucesso');

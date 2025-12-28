@@ -1,0 +1,52 @@
+<div class="card">
+    <form action="{{route('users.update', $user->id)}}" method="POST">
+    @csrf
+    @method('PUT')
+
+        <div class="card-header">
+            Dados básicos
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nome</label>
+                <input 
+                    type="text" 
+                    name="name" 
+                    value="{{old('name') ?? $user->name}}"
+                    class="form-control @error('name') is-invalid @enderror" >
+                    @error('name')
+                        <div class="invalid-feedback">{{$message }}</div>
+                    @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input 
+                id="email" 
+                name="email" 
+                type="email" 
+                value="{{old('email') ?? $user->email}}"
+                class="form-control @error('email') is-invalid @enderror">
+                @error('email')
+                <div class="invalid-feedback">{{$message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input 
+                id="password" 
+                name="password" 
+                type="password" 
+                value="{{old('password')}}"
+                class="form-control @error('password') is-invalid @enderror">
+                @error('password')
+                <div class="invalid-feedback">{{$message }}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="card-footer">
+             <button type="submit" class="btn btn-primary">Editar</button>
+        </div>
+    </form>
+</div>
