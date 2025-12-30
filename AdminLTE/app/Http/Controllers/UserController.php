@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserInterest;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,7 @@ class UserController extends Controller
     }
 
     public function edit(User $user){
-        $user->load('profile');
+        $user->load(['profile', 'interests']);
         return view('users.edit',compact('user'));
     }
     public function update(Request $request,User $user){
@@ -56,6 +57,18 @@ class UserController extends Controller
         );
 
         return back()->with('status','Perfil criado com sucesso');
+    }
+    public function updateInterests(Request $request,User $user){
+        $input = $request->validate([
+            'interests'=> 'nullable|array',
+            ]);
+        $user->interests()->delete();
+        if(!empty($input['interests'])) {
+            $user->interests()->createMany($input['interests']);
+        }
+        
+
+        return back()->with('status','Interesses criados com sucesso');
     }
 
 
