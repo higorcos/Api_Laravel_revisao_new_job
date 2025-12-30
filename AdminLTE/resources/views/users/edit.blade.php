@@ -6,9 +6,11 @@
    @session('status')
          <div class="alert alert-success" role="alert">{{$value}}</div>
    @endsession
-   @include('users.parts.interests')
-   <br>
    @include('users.parts.basic-details')
    <br>
    @include('users.parts.profile')
+   <br>
+   @include('users.parts.interests')
+   <br>
+   @include('users.parts.roles')
 @endsection
