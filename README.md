@@ -46,7 +46,7 @@ Abaixo estão os prints do sistema.
 Tela do *Database Navigator* mostrando o banco `pro_admin_LTE` com as tabelas principais do sistema, incluindo `users`, `roles` e `role_user`.
 
 ```md
-![Estrutura do Banco](./imgReadme/banco.png)
+![Estrutura do Banco](/imgReadme/banco.png)
 ```
 
 ---
@@ -57,7 +57,7 @@ Tela do *Database Navigator* mostrando o banco `pro_admin_LTE` com as tabelas pr
 Tela do navegador exibindo erro **403 – This action is unauthorized**, demonstrando o funcionamento das **Policies do Laravel** para controle de acesso.
 
 ```md
-![Erro 403](./imgReadme/403.png)
+![Erro 403](/imgReadme/403.png)
 ```
 
 ---
@@ -68,7 +68,7 @@ Tela do navegador exibindo erro **403 – This action is unauthorized**, demonst
 Tela de listagem de usuários no painel AdminLTE, com campo de busca por nome ou email e paginação ativa.
 
 ```md
-![Listagem de Usuários](./imgReadme/users-list-search.png)
+![Listagem de Usuários](/imgReadme/users-list-search.png)
 ```
 
 ---
@@ -79,7 +79,7 @@ Tela de listagem de usuários no painel AdminLTE, com campo de busca por nome ou
 Listagem completa de usuários com botões de **Editar** e **Excluir**, demonstrando o CRUD funcional.
 
 ```md
-![CRUD Usuários](./imgReadme/users-crud.png)
+![CRUD Usuários](/imgReadme/users-crud.png)
 ```
 
 ---
@@ -95,7 +95,7 @@ Tela de edição de usuário contendo:
 * Cargos/Roles (Admin, Editor)
 
 ```md
-![Editar Usuário](./imgReadme/user-edit.png)
+![Editar Usuário](/imgReadme/user-edit.png)
 ```
 
 ### 6 Tela de Login de Usuário
@@ -109,7 +109,7 @@ Tela de edição de usuário contendo:
 * Cargos/Roles (Admin, Editor)
 
 ```md
-![Editar Usuário](./imgReadme/login.png)
+![Editar Usuário](/imgReadme/login.png)
 ```
 
 ---
@@ -224,51 +224,51 @@ Servindo como **base sólida para projetos reais** e como portfólio no GitHub.
 
 ## 📚 Conteúdos e Tópicos Abordados no Curso
 
-Além das funcionalidades visíveis no sistema, o projeto consolida diversos conceitos fundamentais do Laravel, estudados ao longo do curso:
+* Além das funcionalidades visíveis no sistema, o projeto consolida diversos conceitos fundamentais do Laravel, estudados ao longo do curso:
 
-🔹 Fundamentos do Laravel
+## 🔹 Fundamentos do Laravel
 
-Criação de aplicações web completas usando Laravel, o framework PHP mais popular do mercado
+* Criação de aplicações web completas usando Laravel, o framework PHP mais popular do mercado
 
-Compreensão da arquitetura MVC (Model, View, Controller)
+* Compreensão da arquitetura MVC (Model, View, Controller)
 
-Definição e organização de rotas, controladores e middlewares
+* Definição e organização de rotas, controladores e middlewares
 
-🔹 Autenticação e Autorização
+## 🔹 Autenticação e Autorização
 
-Implementação de autenticação utilizando Laravel Fortify
+* Implementação de autenticação utilizando Laravel Fortify
 
-Bloqueio de rotas e controle de acesso desde o início do projeto
+* Bloqueio de rotas e controle de acesso desde o início do projeto
 
-Gerenciamento de permissões com Gates e Policies
+* Gerenciamento de permissões com Gates e Policies
 
-🔹 Banco de Dados e ORM
+## 🔹 Banco de Dados e ORM
 
-Integração com banco de dados MySQL
+* Integração com banco de dados MySQL
 
-Criação e versionamento do banco usando Migrations
+* Criação e versionamento do banco usando Migrations
 
-Geração de dados de teste com Seeders e Factories
+* Geração de dados de teste com Seeders e Factories
 
-Uso avançado do Eloquent ORM e Query Builder para consultas eficientes
+* Uso avançado do Eloquent ORM e Query Builder para consultas eficientes
 
-🔹 Front-end com Blade e AdminLTE
+## 🔹 Front-end com Blade e AdminLTE
 
-Utilização do Blade Template Engine
+* Utilização do Blade Template Engine
 
-Criação de layouts reutilizáveis e componentes dinâmicos
+* Criação de layouts reutilizáveis e componentes dinâmicos
 
-Integração de painel administrativo com AdminLTE 4
+* Integração de painel administrativo com AdminLTE 4
 
-🔹 Manipulação de Arquivos e Ferramentas
+## 🔹 Manipulação de Arquivos e Ferramentas
 
-Upload, download e organização de arquivos no servidor
+* Upload, download e organização de arquivos no servidor
 
-Uso do sistema de arquivos do Laravel
+* Uso do sistema de arquivos do Laravel
 
-Trabalho com pacotes como Laravel Sanctum
+* Trabalho com pacotes como Laravel Sanctum
 
-Utilização de ferramentas de desenvolvimento como Laravel Sail
+* Utilização de ferramentas de desenvolvimento como Laravel Sail
 
 
 ## 🧑‍💻 Autor
