@@ -56,9 +56,9 @@ Tela do *Database Navigator* mostrando o banco `pro_admin_LTE` com as tabelas pr
 📌 **Descrição da imagem**:
 Tela do navegador exibindo erro **403 – This action is unauthorized**, demonstrando o funcionamento das **Policies do Laravel** para controle de acesso.
 
-```md
+
 ![](https://github.com/higorcos/Api_Laravel_revisao_new_job/blob/main/imgReadme/403.png)
-```
+
 
 ---
 
