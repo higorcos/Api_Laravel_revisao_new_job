@@ -109,7 +109,7 @@ Tela de edição de usuário contendo:
 * Cargos/Roles (Admin, Editor)
 
 
-![Editar Usuário](//imgReadme/login.png)
+![Editar Usuário](/imgReadme/login.png)
 
 
 ---
