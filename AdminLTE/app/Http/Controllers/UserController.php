@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\UserInterest;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -38,11 +39,15 @@ class UserController extends Controller
     }
 
     public function edit(User $user){
+        Gate::authorize('edit', User::class);
+
         $user->load(['profile', 'interests']);
         $roles = Role::all();
         return view('users.edit',compact('user','roles'));
     }
     public function update(Request $request,User $user){
+        Gate::authorize('edit', User::class);
+
     
         $input = $request->validate([
             'name'=> 'required',    
@@ -55,6 +60,8 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('status','Usuário Atualizado');
     }
     public function updateProfile(Request $request,User $user){
+        Gate::authorize('edit', User::class);
+
         $input = $request->validate([
             'type'=> 'required',    
             'address'=> 'nullable',
@@ -67,6 +74,9 @@ class UserController extends Controller
         return back()->with('status','Perfil criado com sucesso');
     }
     public function updateInterests(Request $request,User $user){
+        Gate::authorize('edit', User::class);
+
+
         $input = $request->validate([
             'interests'=> 'nullable|array',
             ]);
@@ -78,7 +88,10 @@ class UserController extends Controller
         return back()->with('status','Interesses criados com sucesso');
     }
 
-        public function updateRoles(Request $request,User $user){
+    public function updateRoles(Request $request,User $user){
+        Gate::authorize('edit', User::class);
+
+
         $input = $request->validate([
             'roles'=> 'required|array',
             ]);
@@ -89,7 +102,9 @@ class UserController extends Controller
     }
 
 
-    public function destroy(User $user){    
+    public function destroy(User $user){  
+        Gate::authorize('destroy', User::class);
+
         $user->delete();
         return back()->with('status','Usuário deletado com sucesso');
     }

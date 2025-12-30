@@ -9,7 +9,9 @@
     @session('status')
         <div class="alert alert-success" role="alert">{{$value}}</div>
     @endsession
-
+    @can('destroy', App\Models\User::class)
+    
+    @endcan
     <form 
         action="{{route('users.index')}}" 
         method="get"
@@ -47,8 +49,13 @@
             <form action="{{route('users.destroy', $user->id)}}" method="post">
                 @csrf
                 @method('delete')
-            <a href="{{route('users.edit', $user->id)}}" class="btn btn-primary btn-sm">Editar</a>
-                <button class="btn btn-danger btn-sm" type="submit">Excluir</a>
+                @can('edit', App\Models\User::class)
+                <a href="{{route('users.edit', $user->id)}}" class="btn btn-primary btn-sm">Editar</a>
+                @endcan
+
+                @can('destroy', App\Models\User::class)
+                    <button class="btn btn-danger btn-sm" type="submit">Excluir</button >
+                @endcan
             </form>
         </td>
         </tr>
