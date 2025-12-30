@@ -10,8 +10,14 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(){
-        $users = User::paginate(10);
+    public function index(Request $request){
+        $users = User::query();
+        $users->when($request->keyword, function($query) use ($request){
+            $query->where('name','like','%'.$request->keyword.'%')
+                  ->orWhere('email','like','%'.$request->keyword.'%');
+        });
+        $users = $users->paginate(10);
+        
         return view('users.index',compact('users'));
     }  
     public function create(){

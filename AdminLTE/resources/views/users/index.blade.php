@@ -9,6 +9,25 @@
     @session('status')
         <div class="alert alert-success" role="alert">{{$value}}</div>
     @endsession
+
+    <form 
+        action="{{route('users.index')}}" 
+        method="get"
+        class="mb-3"
+        style="width: 300px"
+    >
+        <div class="input-group input-group-sm">
+            <input 
+                type="text" 
+                name="keyword" 
+                value="{{request()->keyword}}"
+                class="form-control"
+                placeholder="Pesquisar por nome ou email">
+            <button type="submit"
+                class="btn btn-primary">Buscar</button>
+        </div>
+    </form>
+
     <table class="table">
         <thead>
             <tr>
