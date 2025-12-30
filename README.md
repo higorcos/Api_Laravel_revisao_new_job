@@ -45,9 +45,9 @@ Abaixo estão os prints do sistema.
 📌 **Descrição da imagem**:
 Tela do *Database Navigator* mostrando o banco `pro_admin_LTE` com as tabelas principais do sistema, incluindo `users`, `roles` e `role_user`.
 
-```md
-![Estrutura do Banco](imgReadme/banco.png) 
-```
+
+![Estrutura do Banco](/imgReadme/banco.png) 
+
 
 ---
 
@@ -57,7 +57,7 @@ Tela do *Database Navigator* mostrando o banco `pro_admin_LTE` com as tabelas pr
 Tela do navegador exibindo erro **403 – This action is unauthorized**, demonstrando o funcionamento das **Policies do Laravel** para controle de acesso.
 
 
-![](https://github.com/higorcos/Api_Laravel_revisao_new_job/blob/main/imgReadme/403.png)
+![](/imgReadme/403.png)
 
 
 ---
@@ -67,9 +67,9 @@ Tela do navegador exibindo erro **403 – This action is unauthorized**, demonst
 📌 **Descrição da imagem**:
 Tela de listagem de usuários no painel AdminLTE, com campo de busca por nome ou email e paginação ativa.
 
-```md
-![Listagem de Usuários](imgReadme/users-list-search.png)
-```
+
+![Listagem de Usuários](/imgReadme/users-list-search.png)
+
 
 ---
 
@@ -78,9 +78,9 @@ Tela de listagem de usuários no painel AdminLTE, com campo de busca por nome ou
 📌 **Descrição da imagem**:
 Listagem completa de usuários com botões de **Editar** e **Excluir**, demonstrando o CRUD funcional.
 
-```md
-![CRUD Usuários](imgReadme/users-crud.png)
-```
+
+![CRUD Usuários](/imgReadme/users-crud.png)
+
 
 ---
 
@@ -94,9 +94,9 @@ Tela de edição de usuário contendo:
 * Interesses (checkbox)
 * Cargos/Roles (Admin, Editor)
 
-```md
-![Editar Usuário](imgReadme/user-edit.png)
-```
+
+![Editar Usuário](/imgReadme/user-edit.png)
+
 
 ### 6 Tela de Login de Usuário
 
@@ -108,9 +108,9 @@ Tela de edição de usuário contendo:
 * Interesses (checkbox)
 * Cargos/Roles (Admin, Editor)
 
-```md
-![Editar Usuário](imgReadme/login.png)
-```
+
+![Editar Usuário](//imgReadme/login.png)
+
 
 ---
 
