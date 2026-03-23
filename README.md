@@ -281,8 +281,3 @@ Desenvolvedor PHP / Laravel
 ## ⭐ Considerações Finais
 
 Se este projeto te ajudou de alguma forma, deixe uma ⭐ no repositório!
-
-
-
-
-
